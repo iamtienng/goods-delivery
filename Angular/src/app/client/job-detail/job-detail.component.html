@@ -1,1 +1,98 @@
-<p>job-detail works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <i class="material-icons">local_shipping</i>
+  <a class="navbar-brand" href="#">&nbsp;Goods Delivery</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/client/jobs']"
+          routerLinkActive="active"
+          >Jobs <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/client/profile']"
+          routerLinkActive="active"
+          >Profile</a
+        >
+      </li>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <!-- <p>Hello, {{ username }}!</p> -->
+      <button
+        class="btn btn-outline-dark my-2 my-sm-0"
+        role="button"
+        (click)="logout()"
+      >
+        Log Out
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="example-container mat-elevation-z8">
+  <h2>Job Case Details</h2>
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/']"
+      ><mat-icon>list</mat-icon></a
+    >
+  </div>
+  <mat-card class="example-card">
+    <!-- <mat-card-header>
+      <mat-card-title
+        ><h2>{{ job.orderID }}</h2></mat-card-title
+      >
+    </mat-card-header> -->
+    <mat-card-content>
+      <dl>
+        <dt>Order ID:</dt>
+        <dd>{{ job.orderID }}</dd>
+        <dt>Item:</dt>
+        <dd>{{ job.itemName }}</dd>
+        <dt>Sender:</dt>
+        <dd>{{ job.senderName }}</dd>
+        <dt>Receiver:</dt>
+        <dd>{{ job.receiverName }}</dd>
+        <dt>Address:</dt>
+        <dd>{{ job.receiverAddress }}</dd>
+        <dt>Status:</dt>
+        <dd><p *ngIf="job.status; then Delivered; else notDelivered"></p></dd>
+        <dt>Note:</dt>
+        <dd>{{ job.note }}</dd>
+        <dt>Update Date:</dt>
+        <dd>{{ job.updated | date }}</dd>
+      </dl>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+      <a mat-flat-button color="primary" [routerLink]="['/edit-sales', job._id]"
+        ><mat-icon>edit</mat-icon> Sales</a
+      >
+      <a mat-flat-button color="warn" (click)="deleteSales(sales._id)"
+        ><mat-icon>delete</mat-icon> Sales</a
+      >
+    </mat-card-actions> -->
+  </mat-card>
+</div>
+<ng-template #notDelivered>
+  Not yet delivered
+</ng-template>
+<ng-template #Delivered>
+  Delivered
+</ng-template>

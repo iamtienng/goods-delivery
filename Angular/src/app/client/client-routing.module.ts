@@ -3,6 +3,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { JobsComponent } from "./jobs/jobs.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { JobDetailComponent } from "./job-detail/job-detail.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: "jobs",
         component: JobsComponent,
+      },
+      {
+        path: "job-details/:id",
+        component: JobDetailComponent,
       },
       {
         path: "profile",

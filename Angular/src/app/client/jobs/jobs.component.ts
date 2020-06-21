@@ -35,6 +35,8 @@ export class JobsComponent implements OnInit {
     this._user.user().subscribe(
       (data) => {
         this.addName(data);
+
+        // render to Table Jobs List
         this.getJobs();
 
         this.socket.on(
@@ -49,7 +51,6 @@ export class JobsComponent implements OnInit {
   }
   addName(data) {
     this.username = data.username;
-    console.log(this.username);
   }
 
   ngOnInit(): void {}
@@ -65,7 +66,6 @@ export class JobsComponent implements OnInit {
   }
 
   getJobs() {
-    console.log(this.username);
     this.jobs.getJobsListByDeliver(this.username).subscribe(
       (res: any) => {
         this.dataJobs = res;

@@ -45,28 +45,53 @@
   </div>
 </nav>
 <div
-  class="row"
+  class="w-100"
   style="
-    margin-top: 40px;
     background-color: #eff0f2;
     -webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   "
 >
-  <div class="col-sm-12">
+  <div class="col-sm">
     <div class="jumbotron">
       <h1 class="display-4">Hello, {{ username }}!</h1>
-      <p class="lead">You have successfully logged in to our system.</p>
+      <p class="lead">Below is your information:</p>
       <hr class="my-4" />
-      <p>
-        Thanks to bootstrap for making wonderful UI to make development fast.
-      </p>
-      <p class="lead" style="color: white;">
-        <a class="btn btn-primary btn-lg" role="button" (click)="logout()"
-          >Log Out</a
+      <ul class="list-group">
+        <label for="name">Name</label>
+        <li class="list-group-item" id="name" style="border-radius: 5px;">
+          {{ deliver.name }}
+        </li>
+        <label for="surname">Surname</label>
+        <li class="list-group-item" id="surname" style="border-radius: 5px;">
+          {{ deliver.surname }}
+        </li>
+        <label for="codiceFiscale">Codice Fiscale</label>
+        <li
+          class="list-group-item"
+          id="codiceFiscale"
+          style="border-radius: 5px;"
         >
-      </p>
+          {{ deliver.codiceFiscale }}
+        </li>
+        <label for="username">Username</label>
+        <li class="list-group-item" id="username" style="border-radius: 5px;">
+          {{ deliver.username }}
+        </li>
+        <label for="email">Email</label>
+        <li class="list-group-item" id="email" style="border-radius: 5px;">
+          {{ deliver.email }}
+        </li>
+        <label for="creation_dt">Be with us from</label>
+        <li
+          class="list-group-item"
+          id="creation_dt"
+          style="border-radius: 5px;"
+        >
+          {{ deliver.creation_dt | date }}
+        </li>
+      </ul>
     </div>
   </div>
 </div>

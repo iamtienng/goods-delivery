@@ -2,10 +2,6 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
 var passport = require("passport");
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
 router.post("/register", function (req, res, next) {
   addToDB(req, res);
@@ -13,8 +9,11 @@ router.post("/register", function (req, res, next) {
 
 async function addToDB(req, res) {
   var user = new User({
-    email: req.body.email,
+    name: req.body.name,
+    surname: req.body.surname,
+    codiceFiscale: req.body.codiceFiscale,
     username: req.body.username,
+    email: req.body.email,
     password: User.hashPassword(req.body.password),
     creation_dt: Date.now(),
   });

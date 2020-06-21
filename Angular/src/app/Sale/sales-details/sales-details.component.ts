@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+
 import * as io from "socket.io-client";
 import { ActivatedRoute, Router } from "@angular/router";
+
 import { ApiService } from "../api.service";
 import { Sales } from "./../sales";
 
