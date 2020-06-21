@@ -79,6 +79,7 @@ export class JobFinishComponent implements OnInit {
     this.isLoadingResults = true;
     this.job.status = true;
     this.job.note = this.jobForm.value.note;
+    console.log(JSON.stringify(this.jobForm.value));
     this.jobsService.updateJob(this._id, this.job).subscribe(
       (res: any) => {
         const id = res._id;

@@ -41,6 +41,7 @@ export class AddSalesComponent implements OnInit {
   itemPrice: number = null;
   itemQty: number = null;
   totalPrice: number = null;
+
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
