@@ -32,7 +32,7 @@ export class LoginAdminComponent implements OnInit {
     this._admin.login(JSON.stringify(this.loginAdminForm.value)).subscribe(
       (data) => {
         console.log(data);
-        this._router.navigate(["/admin/home"]);
+        this._router.navigate(["/admin/orders"]);
       },
       (error) => console.error(error)
     );

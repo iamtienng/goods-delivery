@@ -1,7 +1,9 @@
 import { Routes, RouterModule } from "@angular/router";
 import { LoginAdminComponent } from "./login-admin/login-admin.component";
-import { HomeAdminComponent } from "./home-admin/home-admin.component";
 import { RegisterAdminComponent } from "./register-admin/register-admin.component";
+import { OrdersComponent } from "./orders/orders.component";
+import { DeliversComponent } from "./delivers/delivers.component";
+import { AssignComponent } from "./assign/assign.component";
 
 const routes: Routes = [
   {
@@ -9,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "/admin/home",
+        redirectTo: "/admin/orders",
         pathMatch: "full",
       },
       {
@@ -17,12 +19,20 @@ const routes: Routes = [
         component: LoginAdminComponent,
       },
       {
-        path: "home",
-        component: HomeAdminComponent,
-      },
-      {
         path: "register",
         component: RegisterAdminComponent,
+      },
+      {
+        path: "orders",
+        component: OrdersComponent,
+      },
+      {
+        path: "delivers",
+        component: DeliversComponent,
+      },
+      {
+        path: "assign",
+        component: AssignComponent,
       },
     ],
   },
