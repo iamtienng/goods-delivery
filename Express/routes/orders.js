@@ -23,8 +23,8 @@ router.get("/", function (req, res, next) {
 });
 
 // list data by deliver
-router.get("/:id", function (req, res, next) {
-  Order.find({ deliver: req.params.id }, function (err, order) {
+router.get("/getjobslist/:deliver", function (req, res, next) {
+  Order.find({ deliver: req.params.deliver }, function (err, order) {
     if (err) return next(err);
     res.json(order);
   });

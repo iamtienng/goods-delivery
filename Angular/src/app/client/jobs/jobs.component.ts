@@ -2,9 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../user.service";
 import { Router } from "@angular/router";
 
-//test with sales
 import * as io from "socket.io-client";
-//test
 import { Order } from "../../models/order";
 import { JobsService } from "../jobs.service";
 
@@ -14,13 +12,9 @@ import { JobsService } from "../jobs.service";
   styleUrls: ["./jobs.component.scss"],
 })
 export class JobsComponent implements OnInit {
-  //Test with Sales
   socket = io("http://localhost:4001");
-
-  displayedColumns: string[] = ["itemId", "itemName", "totalPrice"];
-
   isLoadingResults = true;
-  //Test
+
   displayedJobsColumns: string[] = [
     "orderID",
     "itemName",
@@ -39,26 +33,26 @@ export class JobsComponent implements OnInit {
     private jobs: JobsService
   ) {
     this._user.user().subscribe(
-      (data) => this.addName(data),
+      (data) => {
+        this.addName(data);
+        this.getJobs();
+
+        this.socket.on(
+          "update-data",
+          function (data: any) {
+            this.getJobs();
+          }.bind(this)
+        );
+      },
       (error) => this._router.navigate(["/client/login"])
     );
   }
   addName(data) {
     this.username = data.username;
+    console.log(this.username);
   }
 
-  ngOnInit(): void {
-    //Test with sales
-    this.getJobs();
-
-    this.socket.on(
-      "update-data",
-      function (data: any) {
-        this.getJobs();
-      }.bind(this)
-    );
-    //test
-  }
+  ngOnInit(): void {}
 
   logout() {
     this._user.logout().subscribe(
@@ -70,11 +64,9 @@ export class JobsComponent implements OnInit {
     );
   }
 
-  // Test with sales
-
-  //test
   getJobs() {
-    this.jobs.getJobs().subscribe(
+    console.log(this.username);
+    this.jobs.getJobsListByDeliver(this.username).subscribe(
       (res: any) => {
         this.dataJobs = res;
         console.log(this.dataJobs);
