@@ -4,9 +4,9 @@ import { Router } from "@angular/router";
 
 //test with sales
 import * as io from "socket.io-client";
-import { ApiService } from "../../Sale/api.service";
-import { Sales } from "../../Sale/sales";
 //test
+import { Order } from "../../models/order";
+import { JobsService } from "../jobs.service";
 
 @Component({
   selector: "app-jobs",
@@ -15,18 +15,28 @@ import { Sales } from "../../Sale/sales";
 })
 export class JobsComponent implements OnInit {
   //Test with Sales
-  socket = io("http://localhost:4000");
+  socket = io("http://localhost:4001");
 
   displayedColumns: string[] = ["itemId", "itemName", "totalPrice"];
-  data: Sales[] = [];
+
   isLoadingResults = true;
   //Test
+  displayedJobsColumns: string[] = [
+    "orderID",
+    "itemName",
+    "senderName",
+    "receiverName",
+    "receiverAddress",
+    "status",
+    "note",
+  ];
+  dataJobs: Order[] = [];
+
   username: String = "";
   constructor(
     private _user: UserService,
     private _router: Router,
-    //Test with sales
-    private api: ApiService //test
+    private jobs: JobsService
   ) {
     this._user.user().subscribe(
       (data) => this.addName(data),
@@ -39,12 +49,12 @@ export class JobsComponent implements OnInit {
 
   ngOnInit(): void {
     //Test with sales
-    this.getSales();
+    this.getJobs();
 
     this.socket.on(
       "update-data",
       function (data: any) {
-        this.getSales();
+        this.getJobs();
       }.bind(this)
     );
     //test
@@ -61,11 +71,13 @@ export class JobsComponent implements OnInit {
   }
 
   // Test with sales
-  getSales() {
-    this.api.getSales().subscribe(
+
+  //test
+  getJobs() {
+    this.jobs.getJobs().subscribe(
       (res: any) => {
-        this.data = res;
-        console.log(this.data);
+        this.dataJobs = res;
+        console.log(this.dataJobs);
         this.isLoadingResults = false;
       },
       (err) => {
@@ -74,5 +86,4 @@ export class JobsComponent implements OnInit {
       }
     );
   }
-  //test
 }

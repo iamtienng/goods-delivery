@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 var SalesSchema = new mongoose.Schema({
   id: String,
@@ -10,4 +10,4 @@ var SalesSchema = new mongoose.Schema({
   updated: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Sales', SalesSchema);
+module.exports = mongoose.model("Sales", SalesSchema);

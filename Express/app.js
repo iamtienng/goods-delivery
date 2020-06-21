@@ -9,8 +9,12 @@ var cors = require("cors");
 var createError = require("http-errors");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+
 var salesRouter = require("./routes/sales");
+
+var ordersRouter = require("./routes/orders");
+
+var usersRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");
 
 mongoose
@@ -52,6 +56,7 @@ app.use(
 require("./passport-config");
 app.use(passport.initialize());
 app.use(passport.session());
+// end of passport area
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -60,8 +65,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+
 app.use("/api", salesRouter);
+
+app.use("/orderslist", ordersRouter);
+
+app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 
 // view engine setup
