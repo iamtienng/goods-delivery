@@ -9,7 +9,7 @@ import { Order } from "../models/order";
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
-const apiUrl = "http://localhost:3000/orderslist";
+const apiUrl = "http://localhost:3000/orders";
 
 @Injectable({
   providedIn: "root",

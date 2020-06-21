@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import * as io from "socket.io-client";
 import { Order } from "../../models/order";
+import { OrdersService } from "../orders.service";
 
 @Component({
   selector: "app-orders",
@@ -13,7 +14,25 @@ import { Order } from "../../models/order";
 export class OrdersComponent implements OnInit {
   username: String = "";
 
-  constructor(private admin: AdminService, private router: Router) {}
+  socket = io("http://localhost:4001");
+  isLoadingResults = true;
+  displayedOrdersColumns: string[] = [
+    "orderID",
+    "itemName",
+    "senderName",
+    "receiverName",
+    "receiverAddress",
+    "deliver",
+    "status",
+    "note",
+  ];
+  dataOrders: Order[] = [];
+
+  constructor(
+    private admin: AdminService,
+    private router: Router,
+    private ordersService: OrdersService
+  ) {}
 
   ngOnInit(): void {
     this.admin.admin().subscribe(
@@ -21,6 +40,15 @@ export class OrdersComponent implements OnInit {
         this.addName(data);
       },
       (error) => this.router.navigate(["/admin/login"])
+    );
+    // render to Table Jobs List
+    this.getOrders();
+
+    this.socket.on(
+      "update-data",
+      function (data: any) {
+        this.getOrders();
+      }.bind(this)
     );
   }
 
@@ -35,6 +63,20 @@ export class OrdersComponent implements OnInit {
         this.router.navigate(["/admin/login"]);
       },
       (error) => console.error(error)
+    );
+  }
+
+  getOrders() {
+    this.ordersService.getOrders().subscribe(
+      (res: any) => {
+        this.dataOrders = res;
+        console.log(this.dataOrders);
+        this.isLoadingResults = false;
+      },
+      (err) => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
     );
   }
 }

@@ -68,7 +68,7 @@ app.use("/", indexRouter);
 
 app.use("/api", salesRouter);
 
-app.use("/orderslist", ordersRouter);
+app.use("/orders", ordersRouter);
 
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);

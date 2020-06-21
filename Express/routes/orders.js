@@ -30,23 +30,6 @@ router.get("/getjobslist/:deliver", function (req, res, next) {
   });
 });
 
-// item sales report
-router.get("/orderslist", function (req, res, next) {
-  Order.aggregate(
-    [
-      {
-        $group: {
-          _id: { itemId: "$itemId", itemName: "$itemName" },
-        },
-      },
-    ],
-    function (err, order) {
-      if (err) return next(err);
-      res.json(order);
-    }
-  );
-});
-
 // get data by id
 router.get("/:id", function (req, res, next) {
   Order.findById(req.params.id, function (err, order) {
