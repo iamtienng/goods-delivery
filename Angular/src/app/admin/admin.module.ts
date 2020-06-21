@@ -8,12 +8,18 @@ import { AdminService } from "./admin.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RegisterAdminComponent } from "./register-admin/register-admin.component";
 import { HttpClientModule } from "@angular/common/http";
+import { OrdersComponent } from './orders/orders.component';
+import { DeliversComponent } from './delivers/delivers.component';
+import { AssignComponent } from './assign/assign.component';
 
 @NgModule({
   declarations: [
     LoginAdminComponent,
     HomeAdminComponent,
     RegisterAdminComponent,
+    OrdersComponent,
+    DeliversComponent,
+    AssignComponent,
   ],
   imports: [
     CommonModule,
