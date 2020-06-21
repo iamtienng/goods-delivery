@@ -1,1 +1,56 @@
-<p>orders works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <i class="material-icons">local_shipping</i>
+  <a class="navbar-brand" [routerLink]="['/admin']" routerLinkActive="active"
+    >&nbsp;Admin Panel</a
+  >
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a
+          class="nav-link"
+          [routerLink]="['/admin/orders']"
+          routerLinkActive="active"
+          >Orders <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/admin/delivers']"
+          routerLinkActive="active"
+          >Delivers</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/admin/assign']"
+          routerLinkActive="active"
+          >Assign Job</a
+        >
+      </li>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <button
+        class="btn btn-outline-dark my-2 my-sm-0"
+        role="button"
+        (click)="logout()"
+      >
+        Log Out
+      </button>
+    </div>
+  </div>
+</nav>
+Orders
