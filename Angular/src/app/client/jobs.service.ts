@@ -46,4 +46,12 @@ export class JobsService {
       catchError(this.handleError<Order>())
     );
   }
+
+  updateJob(id: string, job: Order): Observable<any> {
+    const url = `${apiUrl}/${id}`;
+    return this.http.put(url, job, httpOptions).pipe(
+      tap((_) => console.log(`Finished job id = ${id}`)),
+      catchError(this.handleError<any>())
+    );
+  }
 }

@@ -4,6 +4,7 @@ import { RegisterComponent } from "./register/register.component";
 import { JobsComponent } from "./jobs/jobs.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { JobDetailComponent } from "./job-detail/job-detail.component";
+import { JobFinishComponent } from "./job-finish/job-finish.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "job-details/:id",
         component: JobDetailComponent,
+      },
+      {
+        path: "job-finish/:id",
+        component: JobFinishComponent,
       },
       {
         path: "profile",

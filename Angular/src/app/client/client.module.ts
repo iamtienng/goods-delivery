@@ -23,6 +23,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { JobFinishComponent } from './job-finish/job-finish.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     JobsComponent,
     ProfileComponent,
     JobDetailComponent,
+    JobFinishComponent,
   ],
   imports: [
     CommonModule,

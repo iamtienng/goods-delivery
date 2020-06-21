@@ -80,6 +80,14 @@
         <dd>{{ job.updated | date }}</dd>
       </dl>
     </mat-card-content>
+    <a
+      mat-flat-button
+      *ngIf="!job.status"
+      color="primary"
+      [routerLink]="['/client/job-finish', job._id]"
+    >
+      <mat-icon> local_shipping</mat-icon> Finish this order</a
+    >
     <!-- <mat-card-actions>
       <a mat-flat-button color="primary" [routerLink]="['/edit-sales', job._id]"
         ><mat-icon>edit</mat-icon> Sales</a
