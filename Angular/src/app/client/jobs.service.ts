@@ -27,7 +27,7 @@ export class JobsService {
   getJobsListByDeliver(deliver: String): Observable<Order[]> {
     const url = `${apiUrl}/getjobslist/${deliver}`;
     return this.http.get<Order[]>(url).pipe(
-      tap(() => console.log(`Fetched jobs list deliver=${deliver}`)),
+      tap(() => console.log(`Fetched jobs list deliver = ${deliver}`)),
       catchError(this.handleError("getJobsListByDeliver", []))
     );
   }
@@ -35,7 +35,7 @@ export class JobsService {
   getJobById(id: string): Observable<Order> {
     const url = `${apiUrl}/${id}`;
     return this.http.get<Order>(url).pipe(
-      tap((_) => console.log(`Fetched job id=${id}`)),
+      tap((_) => console.log(`Fetched job id = ${id}`)),
       catchError(this.handleError<Order>())
     );
   }

@@ -34,7 +34,7 @@ export class DeliversService {
   getDeliverById(id: string): Observable<User> {
     const url = `${apiUrl}/${id}`;
     return this.http.get<User>(url).pipe(
-      tap((_) => console.log(`Fetched deliver id=${id}`)),
+      tap((_) => console.log(`Fetched deliver id = ${id}`)),
       catchError(this.handleError<User>())
     );
   }
@@ -42,7 +42,7 @@ export class DeliversService {
   deleteDeliver(id: string): Observable<User> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete<User>(url, httpOptions).pipe(
-      tap((_) => console.log(`Deleted deliver id=${id}`)),
+      tap((_) => console.log(`Deleted deliver id = ${id}`)),
       catchError(this.handleError<User>())
     );
   }
