@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-
-import * as io from "socket.io-client";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import * as io from "socket.io-client";
+
 import { Order } from "src/app/models/order";
+
 import { JobsService } from "../jobs.service";
 import { UserService } from "../user.service";
 
@@ -13,8 +14,10 @@ import { UserService } from "../user.service";
   styleUrls: ["./job-detail.component.scss"],
 })
 export class JobDetailComponent implements OnInit {
-  socket = io("http://localhost:4001");
+  username: String = "";
+
   isLoadingResults = true;
+  socket = io("http://localhost:4001");
 
   job: Order = {
     _id: "",
@@ -32,18 +35,25 @@ export class JobDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: JobsService,
-    private _user: UserService,
-    private _router: Router
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getJobDetails(this.route.snapshot.params.id);
+    this.userService.user().subscribe(
+      (data) => {
+        this.addName(data);
 
-    this.socket.on(
-      "update-data",
-      function (data: any) {
-        this.getJobDetails();
-      }.bind(this)
+        this.getJobDetails(this.route.snapshot.params.id);
+
+        this.socket.on(
+          "update-data",
+          function (data: any) {
+            this.getJobDetails();
+          }.bind(this)
+        );
+      },
+      (error) => this.router.navigate(["/client/login"])
     );
   }
 
@@ -54,11 +64,16 @@ export class JobDetailComponent implements OnInit {
       this.isLoadingResults = false;
     });
   }
+
+  addName(data) {
+    this.username = data.username;
+  }
+
   logout() {
-    this._user.logout().subscribe(
+    this.userService.logout().subscribe(
       (data) => {
         console.log(data);
-        this._router.navigate(["/client/login"]);
+        this.router.navigate(["/client/login"]);
       },
       (error) => console.error(error)
     );

@@ -50,10 +50,6 @@ export class DeliversComponent implements OnInit {
       (error) => this.router.navigate(["/admin/login"])
     );
   }
-  addName(data) {
-    this.username = data.username;
-  }
-
   getDelivers() {
     this.deliversService.getDelivers().subscribe(
       (res: any) => {
@@ -66,6 +62,10 @@ export class DeliversComponent implements OnInit {
         this.isLoadingResults = false;
       }
     );
+  }
+
+  addName(data) {
+    this.username = data.username;
   }
 
   logout() {

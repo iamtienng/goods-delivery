@@ -53,4 +53,38 @@
     </div>
   </div>
 </nav>
-Assign
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Order ID:</mat-label>
+      <mat-select [(ngModel)]="selectedOrderId" name="order">
+        <mat-option *ngFor="let order of dataOrders" [value]="order._id">
+          {{ order.orderID }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <p>Selected Order: {{ selectedOrderId }}</p> -->
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Deliver username:</mat-label>
+      <mat-select [(ngModel)]="selectedDeliverUsername" name="deliver">
+        <mat-option
+          *ngFor="let deliver of dataDelivers"
+          [value]="deliver.username"
+        >
+          {{ deliver.username }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <p>Selected Deliver: {{ selectedDeliverUsername }}</p> -->
+  </div>
+  <mat-card-actions>
+    <a mat-flat-button color="primary" (click)="addDeliverToOrder()"
+      ><mat-icon>timeline</mat-icon> Assign</a
+    >
+  </mat-card-actions>
+</div>

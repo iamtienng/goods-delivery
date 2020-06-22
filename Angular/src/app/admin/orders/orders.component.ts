@@ -51,6 +51,19 @@ export class OrdersComponent implements OnInit {
       }.bind(this)
     );
   }
+  getOrders() {
+    this.ordersService.getOrders().subscribe(
+      (res: any) => {
+        this.dataOrders = res;
+        console.log(this.dataOrders);
+        this.isLoadingResults = false;
+      },
+      (err) => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
+    );
+  }
 
   addName(data) {
     this.username = data.username;
@@ -63,20 +76,6 @@ export class OrdersComponent implements OnInit {
         this.router.navigate(["/admin/login"]);
       },
       (error) => console.error(error)
-    );
-  }
-
-  getOrders() {
-    this.ordersService.getOrders().subscribe(
-      (res: any) => {
-        this.dataOrders = res;
-        console.log(this.dataOrders);
-        this.isLoadingResults = false;
-      },
-      (err) => {
-        console.log(err);
-        this.isLoadingResults = false;
-      }
     );
   }
 }

@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "../user.service";
 import { Router } from "@angular/router";
 
 import * as io from "socket.io-client";
+
 import { Order } from "../../models/order";
+
 import { JobsService } from "../jobs.service";
+import { UserService } from "../user.service";
 
 @Component({
   selector: "app-jobs",
@@ -12,8 +14,10 @@ import { JobsService } from "../jobs.service";
   styleUrls: ["./jobs.component.scss"],
 })
 export class JobsComponent implements OnInit {
-  socket = io("http://localhost:4001");
+  username: String = "";
+
   isLoadingResults = true;
+  socket = io("http://localhost:4001");
 
   displayedJobsColumns: string[] = [
     "orderID",
@@ -26,17 +30,18 @@ export class JobsComponent implements OnInit {
   ];
   dataJobs: Order[] = [];
 
-  username: String = "";
   constructor(
-    private _user: UserService,
-    private _router: Router,
+    private userService: UserService,
+    private router: Router,
     private jobs: JobsService
-  ) {
-    this._user.user().subscribe(
+  ) {}
+
+  ngOnInit(): void {
+    this.userService.user().subscribe(
       (data) => {
         this.addName(data);
 
-        // render to Table Jobs List
+        // Get data for jobs list
         this.getJobs();
 
         this.socket.on(
@@ -46,22 +51,7 @@ export class JobsComponent implements OnInit {
           }.bind(this)
         );
       },
-      (error) => this._router.navigate(["/client/login"])
-    );
-  }
-  addName(data) {
-    this.username = data.username;
-  }
-
-  ngOnInit(): void {}
-
-  logout() {
-    this._user.logout().subscribe(
-      (data) => {
-        console.log(data);
-        this._router.navigate(["/client/login"]);
-      },
-      (error) => console.error(error)
+      (error) => this.router.navigate(["/client/login"])
     );
   }
 
@@ -76,6 +66,20 @@ export class JobsComponent implements OnInit {
         console.log(err);
         this.isLoadingResults = false;
       }
+    );
+  }
+
+  addName(data) {
+    this.username = data.username;
+  }
+
+  logout() {
+    this.userService.logout().subscribe(
+      (data) => {
+        console.log(data);
+        this.router.navigate(["/client/login"]);
+      },
+      (error) => console.error(error)
     );
   }
 }

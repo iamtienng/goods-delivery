@@ -14,9 +14,9 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, Validators.required),
   });
 
-  constructor(private _router: Router, private _user: UserService) {
-    this._user.user().subscribe(
-      (data) => this._router.navigate(["/client/jobs"]),
+  constructor(private router: Router, private userService: UserService) {
+    this.userService.user().subscribe(
+      (data) => this.router.navigate(["/client/jobs"]),
       (error) => {}
     );
   }
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   moveToRegister() {
-    this._router.navigate(["/client/register"]);
+    this.router.navigate(["/client/register"]);
   }
 
   login() {
@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
     }
 
     // console.log(JSON.stringify(this.loginForm.value));
-    this._user.login(JSON.stringify(this.loginForm.value)).subscribe(
+    this.userService.login(JSON.stringify(this.loginForm.value)).subscribe(
       (data) => {
         console.log(data);
-        this._router.navigate(["/client/jobs"]);
+        this.router.navigate(["/client/jobs"]);
       },
       (error) => console.error(error)
     );

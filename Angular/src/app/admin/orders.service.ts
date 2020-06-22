@@ -26,7 +26,7 @@ export class OrdersService {
 
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${apiUrl}`).pipe(
-      tap(() => console.log("fetched orders")),
+      tap(() => console.log("Fetched orders")),
       catchError(this.handleError("getJobs", []))
     );
   }
@@ -57,6 +57,15 @@ export class OrdersService {
   updateOrder(id: string, order: Order): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.put(url, order, httpOptions).pipe(
+      tap((_) => console.log(`Updated order id = ${id}`)),
+      catchError(this.handleError<any>())
+    );
+  }
+
+  addDeliverToOrder(id: string, deliver: string): Observable<any> {
+    const url = `${apiUrl}/${id}`;
+    const data = { deliver: deliver };
+    return this.http.put(url, data, httpOptions).pipe(
       tap((_) => console.log(`Updated order id = ${id}`)),
       catchError(this.handleError<any>())
     );
