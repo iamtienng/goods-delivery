@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import * as io from "socket.io-client";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ApiService } from "../api.service";
+import { ErrorStateMatcher } from "@angular/material/core";
 import {
   FormControl,
   FormGroupDirective,
@@ -10,7 +9,10 @@ import {
   NgForm,
   Validators,
 } from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
+
+import * as io from "socket.io-client";
+
+import { ApiService } from "../api.service";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {

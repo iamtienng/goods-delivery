@@ -53,4 +53,123 @@
     </div>
   </div>
 </nav>
-Edit Orders
+<div class="example-container mat-elevation-z8">
+  <h2>Edit Order</h2>
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/admin']"
+      ><mat-icon>list</mat-icon></a
+    >
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="orderForm" (ngSubmit)="onFormSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Order ID</mat-label>
+        <input
+          matInput
+          placeholder="Order ID"
+          formControlName="orderID"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !orderForm.get('orderID').valid &&
+              orderForm.get('orderID').touched
+            "
+            >Please enter Order ID</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Item</mat-label>
+        <input
+          matInput
+          placeholder="Item"
+          formControlName="itemName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !orderForm.get('itemName').valid &&
+              orderForm.get('itemName').touched
+            "
+            >Please enter Item Name</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Sender</mat-label>
+        <input
+          matInput
+          placeholder="Sender"
+          formControlName="senderName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !orderForm.get('senderName').valid &&
+              orderForm.get('senderName').touched
+            "
+            >Please enter Item Name</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Receiver</mat-label>
+        <input
+          matInput
+          placeholder="Receiver"
+          formControlName="receiverName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !orderForm.get('receiverName').valid &&
+              orderForm.get('receiverName').touched
+            "
+            >Please enter Item Name</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Receiver Address</mat-label>
+        <input
+          matInput
+          placeholder="Receiver Address"
+          formControlName="receiverAddress"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error>
+          <span
+            *ngIf="
+              !orderForm.get('receiverAddress').valid &&
+              orderForm.get('receiverAddress').touched
+            "
+            >Please enter Item Name</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-row">
+        <button
+          type="submit"
+          [disabled]="!orderForm.valid"
+          mat-flat-button
+          color="primary"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
