@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+
+import * as io from "socket.io-client";
 
 import { AdminService } from "../admin.service";
+import { OrdersService } from "../orders.service";
+import { Order } from "src/app/models/order";
 
 @Component({
   selector: "app-order-details",
@@ -10,7 +14,29 @@ import { AdminService } from "../admin.service";
 })
 export class OrderDetailsComponent implements OnInit {
   username: String = "";
-  constructor(private admin: AdminService, private router: Router) {}
+
+  socket = io("http://localhost:4001");
+  isLoadingResults = true;
+
+  order: Order = {
+    _id: null,
+    orderID: "",
+    itemName: "",
+    senderName: "",
+    receiverName: "",
+    receiverAddress: "",
+    deliver: "",
+    status: false,
+    note: "",
+    updated: null,
+  };
+
+  constructor(
+    private admin: AdminService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private ordersService: OrdersService
+  ) {}
 
   ngOnInit(): void {
     this.admin.admin().subscribe(
@@ -19,7 +45,39 @@ export class OrderDetailsComponent implements OnInit {
       },
       (error) => this.router.navigate(["/admin/login"])
     );
+
+    this.getOrderDetails(this.route.snapshot.params.id);
+
+    this.socket.on(
+      "update-data",
+      function (data: any) {
+        this.getOrderDetails();
+      }.bind(this)
+    );
   }
+  getOrderDetails(id: string) {
+    this.ordersService.getOrderById(id).subscribe((data: any) => {
+      this.order = data;
+      console.log(this.order);
+      this.isLoadingResults = false;
+    });
+  }
+
+  deleteOrder(id: any) {
+    this.isLoadingResults = true;
+    this.ordersService.deleteOrder(id).subscribe(
+      (res) => {
+        this.isLoadingResults = false;
+        this.router.navigate(["/admin"]);
+        this.socket.emit("updatedata", res);
+      },
+      (err) => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
+    );
+  }
+
   addName(data) {
     this.username = data.username;
   }

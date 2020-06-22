@@ -42,7 +42,7 @@ export class JobDetailComponent implements OnInit {
     this.socket.on(
       "update-data",
       function (data: any) {
-        this.getSalesDetails();
+        this.getJobDetails();
       }.bind(this)
     );
   }

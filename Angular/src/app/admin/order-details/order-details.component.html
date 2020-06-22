@@ -53,4 +53,68 @@
     </div>
   </div>
 </nav>
-Order Details
+<div class="example-container mat-elevation-z8">
+  <h2>Job Case Details</h2>
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/admin']"
+      ><mat-icon>list</mat-icon></a
+    >
+  </div>
+  <mat-card class="example-card">
+    <!-- <mat-card-header>
+      <mat-card-title
+        ><h2>{{ job.orderID }}</h2></mat-card-title
+      >
+    </mat-card-header> -->
+    <mat-card-content>
+      <dl>
+        <dt>Order ID:</dt>
+        <dd>{{ order.orderID }}</dd>
+        <dt>Item:</dt>
+        <dd>{{ order.itemName }}</dd>
+        <dt>Sender:</dt>
+        <dd>{{ order.senderName }}</dd>
+        <dt>Receiver:</dt>
+        <dd>{{ order.receiverName }}</dd>
+        <dt>Address:</dt>
+        <dd>{{ order.receiverAddress }}</dd>
+        <dt>Deliver:</dt>
+        <dd>{{ order.deliver }}</dd>
+        <dt>Status:</dt>
+        <dd><p *ngIf="order.status; then Delivered; else notDelivered"></p></dd>
+        <dt>Note:</dt>
+        <dd>{{ order.note }}</dd>
+        <dt>Update Date:</dt>
+        <dd>{{ order.updated | date }}</dd>
+      </dl>
+    </mat-card-content>
+    <!-- <a
+      mat-flat-button
+      *ngIf="!job.status"
+      color="primary"
+      [routerLink]="['/client/job-finish', job._id]"
+    >
+      <mat-icon> local_shipping</mat-icon> Finish this order</a
+    > -->
+    <mat-card-actions>
+      <a
+        mat-flat-button
+        color="primary"
+        [routerLink]="['/admin/edit-order', order._id]"
+        ><mat-icon>edit</mat-icon> Order</a
+      >
+      <a mat-flat-button color="warn" (click)="deleteOrder(order._id)"
+        ><mat-icon>delete</mat-icon> Order</a
+      >
+    </mat-card-actions>
+  </mat-card>
+</div>
+<ng-template #notDelivered>
+  Not yet delivered
+</ng-template>
+<ng-template #Delivered>
+  Delivered
+</ng-template>
