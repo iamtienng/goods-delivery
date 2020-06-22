@@ -31,6 +31,14 @@ export class OrdersService {
     );
   }
 
+  getOrdersByDeliver(deliver: String): Observable<Order[]> {
+    const url = `http://localhost:3000/orders/getjobslist/${deliver}`;
+    return this.http.get<Order[]>(url).pipe(
+      tap(() => console.log(`Fetched orders list of deliver=${deliver}`)),
+      catchError(this.handleError("getOrdersByDeliver", []))
+    );
+  }
+
   getOrderById(id: string): Observable<Order> {
     const url = `${apiUrl}/${id}`;
     return this.http.get<Order>(url).pipe(

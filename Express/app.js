@@ -15,7 +15,7 @@ var salesRouter = require("./routes/sales");
 var ordersRouter = require("./routes/orders");
 
 var usersRouter = require("./routes/users");
-var adminRouter = require("./routes/admin");
+var adminRouter = require("./routes/admins");
 
 mongoose
   .connect("mongodb://localhost/goodsdelivery", {

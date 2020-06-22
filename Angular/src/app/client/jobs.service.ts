@@ -28,7 +28,7 @@ export class JobsService {
     const url = `${apiUrl}/getjobslist/${deliver}`;
     return this.http.get<Order[]>(url).pipe(
       tap(() => console.log(`fetched jobs list deliver=${deliver}`)),
-      catchError(this.handleError("getJobs", []))
+      catchError(this.handleError("getJobsListByDeliver", []))
     );
   }
 
