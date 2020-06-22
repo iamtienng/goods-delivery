@@ -57,7 +57,7 @@ function isValidUser(req, res, next) {
   else return res.status(401).json({ message: "Unauthorized Request" });
 }
 
-// for admin side to show the list
+// for admin side to show the list of delivers
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);

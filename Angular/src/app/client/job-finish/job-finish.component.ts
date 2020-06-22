@@ -82,9 +82,11 @@ export class JobFinishComponent implements OnInit {
 
   onFormSubmit() {
     this.isLoadingResults = true;
+
     this.job.status = true;
     this.job.note = this.jobForm.value.note;
-    console.log(JSON.stringify(this.jobForm.value));
+    let date: Date = new Date();
+    this.job.updated = date;
     this.jobsService.updateJob(this.job._id, this.job).subscribe(
       (res: any) => {
         const id = res._id;

@@ -104,6 +104,9 @@ export class EditOrderComponent implements OnInit {
     this.order.senderName = this.orderForm.value.senderName;
     this.order.receiverName = this.orderForm.value.receiverName;
     this.order.receiverAddress = this.orderForm.value.receiverAddress;
+    let date: Date = new Date();
+    this.order.updated = date;
+
     this.ordersService.updateOrder(this.order._id, this.order).subscribe(
       (res: any) => {
         const id = res._id;

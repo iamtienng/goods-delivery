@@ -96,6 +96,8 @@ export class AddOrderComponent implements OnInit {
     this.newOrder.senderName = this.orderForm.value.senderName;
     this.newOrder.receiverName = this.orderForm.value.receiverName;
     this.newOrder.receiverAddress = this.orderForm.value.receiverAddress;
+    let date: Date = new Date();
+    this.newOrder.updated = date;
 
     this.ordersService.addOrder(this.newOrder).subscribe(
       (res: any) => {
