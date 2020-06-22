@@ -83,7 +83,11 @@
     <!-- <p>Selected Deliver: {{ selectedDeliverUsername }}</p> -->
   </div>
   <mat-card-actions>
-    <a mat-flat-button color="primary" (click)="addDeliverToOrder()"
+    <a
+      mat-flat-button
+      color="primary"
+      (click)="addDeliverToOrder()"
+      [disabled]="!selectedOrderId || !selectedDeliverUsername"
       ><mat-icon>timeline</mat-icon> Assign</a
     >
   </mat-card-actions>

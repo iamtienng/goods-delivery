@@ -26,6 +26,7 @@
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           placeholder="Enter email"
+          (keyup.enter)="login()"
         />
         <small id="emailHelp" class="form-text text-muted"></small>
       </div>
@@ -41,6 +42,9 @@
           (keyup.enter)="login()"
         />
         <small id="passHelp" class="form-text text-muted"></small>
+      </div>
+      <div style="text-align: center;">
+        <p *ngIf="!loginStatus">Please check your email and password!</p>
       </div>
 
       <div class="form-group" style="text-align: center;">

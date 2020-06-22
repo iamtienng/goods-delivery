@@ -9,6 +9,8 @@ import { UserService } from "../user.service";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
+  loginStatus = true;
+
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
     password: new FormControl(null, Validators.required),
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (!this.loginForm.valid) {
-      console.log("Invalid");
+      this.loginStatus = false;
       return;
     }
 
@@ -39,7 +41,10 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.router.navigate(["/client/jobs"]);
       },
-      (error) => console.error(error)
+      (error) => {
+        this.loginStatus = false;
+        console.error(error);
+      }
     );
   }
 }

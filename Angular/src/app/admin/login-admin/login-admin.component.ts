@@ -10,6 +10,8 @@ import { AdminService } from "../admin.service";
   styleUrls: ["./login-admin.component.scss"],
 })
 export class LoginAdminComponent implements OnInit {
+  loginStatus = true;
+
   loginAdminForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
     password: new FormControl(null, Validators.required),
@@ -36,7 +38,10 @@ export class LoginAdminComponent implements OnInit {
           console.log(data);
           this.router.navigate(["/admin/orders"]);
         },
-        (error) => console.error(error)
+        (error) => {
+          this.loginStatus = false;
+          console.error(error);
+        }
       );
   }
 }
