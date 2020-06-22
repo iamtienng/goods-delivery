@@ -3,12 +3,6 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
-import { SalesComponent } from "./Sale/sales/sales.component";
-import { SalesDetailsComponent } from "./Sale/sales-details/sales-details.component";
-import { AddSalesComponent } from "./Sale/add-sales/add-sales.component";
-import { EditSalesComponent } from "./Sale/edit-sales/edit-sales.component";
-
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -26,13 +20,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { ChartsModule } from "ng2-charts";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SalesComponent,
-    SalesDetailsComponent,
-    AddSalesComponent,
-    EditSalesComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
