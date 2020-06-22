@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+
 import { AdminService } from "../admin.service";
 
 @Component({
@@ -14,12 +15,12 @@ export class LoginAdminComponent implements OnInit {
     password: new FormControl(null, Validators.required),
   });
 
-  constructor(private _router: Router, private _admin: AdminService) {}
+  constructor(private router: Router, private adminService: AdminService) {}
 
   ngOnInit() {}
 
   moveToRegister() {
-    this._router.navigate(["/admin/register"]);
+    this.router.navigate(["/admin/register"]);
   }
 
   login() {
@@ -28,13 +29,14 @@ export class LoginAdminComponent implements OnInit {
       return;
     }
 
-    // console.log(JSON.stringify(this.loginForm.value));
-    this._admin.login(JSON.stringify(this.loginAdminForm.value)).subscribe(
-      (data) => {
-        console.log(data);
-        this._router.navigate(["/admin/orders"]);
-      },
-      (error) => console.error(error)
-    );
+    this.adminService
+      .login(JSON.stringify(this.loginAdminForm.value))
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.router.navigate(["/admin/orders"]);
+        },
+        (error) => console.error(error)
+      );
   }
 }

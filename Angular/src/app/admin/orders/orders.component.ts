@@ -3,7 +3,9 @@ import { AdminService } from "../admin.service";
 import { Router } from "@angular/router";
 
 import * as io from "socket.io-client";
+
 import { Order } from "../../models/order";
+
 import { OrdersService } from "../orders.service";
 
 @Component({
@@ -14,8 +16,9 @@ import { OrdersService } from "../orders.service";
 export class OrdersComponent implements OnInit {
   username: String = "";
 
-  socket = io("http://localhost:4001");
   isLoadingResults = true;
+  socket = io("http://localhost:4001");
+
   displayedOrdersColumns: string[] = [
     "orderID",
     "itemName",
@@ -38,19 +41,21 @@ export class OrdersComponent implements OnInit {
     this.admin.admin().subscribe(
       (data) => {
         this.addName(data);
+
+        // Get data for dataOrders on Init
+        this.getOrders();
+
+        this.socket.on(
+          "update-data",
+          function (data: any) {
+            this.getOrders();
+          }.bind(this)
+        );
       },
       (error) => this.router.navigate(["/admin/login"])
     );
-    // render to Table Jobs List
-    this.getOrders();
-
-    this.socket.on(
-      "update-data",
-      function (data: any) {
-        this.getOrders();
-      }.bind(this)
-    );
   }
+
   getOrders() {
     this.ordersService.getOrders().subscribe(
       (res: any) => {

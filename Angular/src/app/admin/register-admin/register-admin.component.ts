@@ -15,12 +15,12 @@ export class RegisterAdminComponent implements OnInit {
     password: new FormControl(null, Validators.required),
     cpass: new FormControl(null, Validators.required),
   });
-  constructor(private _router: Router, private _adminService: AdminService) {}
+  constructor(private router: Router, private adminService: AdminService) {}
 
   ngOnInit(): void {}
 
   moveToLogin() {
-    this._router.navigate(["/admin/login"]);
+    this.router.navigate(["/admin/login"]);
   }
 
   register() {
@@ -33,12 +33,12 @@ export class RegisterAdminComponent implements OnInit {
       return;
     }
 
-    this._adminService
+    this.adminService
       .register(JSON.stringify(this.registerAdminForm.value))
       .subscribe(
         (data) => {
           console.log(data);
-          this._router.navigate(["/admin/login"]);
+          this.router.navigate(["/admin/login"]);
         },
         (error) => console.error(error)
       );

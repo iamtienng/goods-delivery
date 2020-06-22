@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import * as io from "socket.io-client";
 
 import { User } from "../../models/user";
+
 import { DeliversService } from "../delivers.service";
 
 @Component({
@@ -14,8 +15,9 @@ import { DeliversService } from "../delivers.service";
 })
 export class DeliversComponent implements OnInit {
   username: String = "";
-  socket = io("http://localhost:4002");
+
   isLoadingResults = true;
+  socket = io("http://localhost:4002");
 
   displayedDeliversColumns: string[] = [
     "name",
@@ -37,7 +39,7 @@ export class DeliversComponent implements OnInit {
       (data) => {
         this.addName(data);
 
-        // render to Table Delivers List
+        // Get data for dataDelivers on Init
         this.getDelivers();
 
         this.socket.on(
@@ -50,6 +52,7 @@ export class DeliversComponent implements OnInit {
       (error) => this.router.navigate(["/admin/login"])
     );
   }
+
   getDelivers() {
     this.deliversService.getDelivers().subscribe(
       (res: any) => {

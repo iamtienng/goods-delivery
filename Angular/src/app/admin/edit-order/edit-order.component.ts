@@ -12,9 +12,10 @@ import {
 
 import * as io from "socket.io-client";
 
+import { Order } from "src/app/models/order";
+
 import { AdminService } from "../admin.service";
 import { OrdersService } from "../orders.service";
-import { Order } from "src/app/models/order";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -39,11 +40,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class EditOrderComponent implements OnInit {
   username: String = "";
 
-  socket = io("http://localhost:4001");
   isLoadingResults = false;
-  matcher = new MyErrorStateMatcher();
-  orderForm: FormGroup;
+  socket = io("http://localhost:4001");
 
+  matcher = new MyErrorStateMatcher();
+
+  orderForm: FormGroup;
   order: Order = {
     _id: null,
     orderID: "",

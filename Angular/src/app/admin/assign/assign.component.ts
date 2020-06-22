@@ -5,8 +5,9 @@ import { Router } from "@angular/router";
 import * as io from "socket.io-client";
 
 import { Order } from "../../models/order";
-import { OrdersService } from "../orders.service";
 import { User } from "src/app/models/user";
+
+import { OrdersService } from "../orders.service";
 import { DeliversService } from "../delivers.service";
 
 @Component({
@@ -16,6 +17,7 @@ import { DeliversService } from "../delivers.service";
 })
 export class AssignComponent implements OnInit {
   username: String = "";
+
   isLoadingResults = true;
 
   socketOrders = io("http://localhost:4001");
@@ -37,6 +39,7 @@ export class AssignComponent implements OnInit {
     this.admin.admin().subscribe(
       (data) => {
         this.addName(data);
+
         // Get data for dataOrders on Init
         this.getOrdersWithoutDeliver();
 
@@ -65,6 +68,7 @@ export class AssignComponent implements OnInit {
     this.ordersService.getOrders().subscribe(
       (res: any) => {
         for (let i of res) {
+          // This is how I get the list of not delivered order
           if (!i.deliver) {
             this.dataOrders.push(i);
           }

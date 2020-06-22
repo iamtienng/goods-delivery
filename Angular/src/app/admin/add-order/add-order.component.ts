@@ -10,11 +10,12 @@ import {
 } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 
-import { AdminService } from "../admin.service";
-
 import * as io from "socket.io-client";
-import { OrdersService } from "../orders.service";
+
 import { Order } from "../../models/order";
+
+import { AdminService } from "../admin.service";
+import { OrdersService } from "../orders.service";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -38,8 +39,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AddOrderComponent implements OnInit {
   username: String = "";
-  socket = io("http://localhost:4001");
+
   isLoadingResults = false;
+  socket = io("http://localhost:4001");
+
   matcher = new MyErrorStateMatcher();
 
   newOrder: Order = {
@@ -56,7 +59,6 @@ export class AddOrderComponent implements OnInit {
   };
 
   orderForm: FormGroup;
-
   orderID: "";
   itemName: "";
   senderName: "";

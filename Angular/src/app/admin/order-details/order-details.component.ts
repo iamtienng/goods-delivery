@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import * as io from "socket.io-client";
 
+import { Order } from "src/app/models/order";
+
 import { AdminService } from "../admin.service";
 import { OrdersService } from "../orders.service";
-import { Order } from "src/app/models/order";
 
 @Component({
   selector: "app-order-details",
@@ -15,8 +16,8 @@ import { Order } from "src/app/models/order";
 export class OrderDetailsComponent implements OnInit {
   username: String = "";
 
-  socket = io("http://localhost:4001");
   isLoadingResults = true;
+  socket = io("http://localhost:4001");
 
   order: Order = {
     _id: null,
@@ -42,19 +43,21 @@ export class OrderDetailsComponent implements OnInit {
     this.admin.admin().subscribe(
       (data) => {
         this.addName(data);
+
+        // Get data of deliver on Init
+        this.getOrderDetails(this.route.snapshot.params.id);
+
+        this.socket.on(
+          "update-data",
+          function (data: any) {
+            this.getOrderDetails();
+          }.bind(this)
+        );
       },
       (error) => this.router.navigate(["/admin/login"])
     );
-
-    this.getOrderDetails(this.route.snapshot.params.id);
-
-    this.socket.on(
-      "update-data",
-      function (data: any) {
-        this.getOrderDetails();
-      }.bind(this)
-    );
   }
+
   getOrderDetails(id: string) {
     this.ordersService.getOrderById(id).subscribe((data: any) => {
       this.order = data;

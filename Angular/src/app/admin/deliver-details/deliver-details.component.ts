@@ -3,11 +3,12 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import * as io from "socket.io-client";
 
+import { User } from "src/app/models/user";
+import { Order } from "src/app/models/order";
+
 import { AdminService } from "../admin.service";
 import { DeliversService } from "../delivers.service";
-import { User } from "src/app/models/user";
 import { OrdersService } from "../orders.service";
-import { Order } from "src/app/models/order";
 
 @Component({
   selector: "app-deliver-details",
@@ -17,9 +18,10 @@ import { Order } from "src/app/models/order";
 export class DeliverDetailsComponent implements OnInit {
   username: String = "";
 
-  socketOrders = io("http://localhost:4001");
-  socket = io("http://localhost:4002");
   isLoadingResults = true;
+
+  socketOrders = io("http://localhost:4001");
+  socketDelivers = io("http://localhost:4002");
 
   deliver: User = {
     _id: null,
@@ -56,26 +58,27 @@ export class DeliverDetailsComponent implements OnInit {
       (data) => {
         this.addName(data);
 
-        // render to Table Jobs List
+        // Get data for dataOrders on Init
         this.getOrdersByDeliver();
 
-        this.socket.on(
+        this.socketOrders.on(
           "update-data",
           function (data: any) {
             this.getOrdersByDeliver();
           }.bind(this)
         );
+
+        // Get data of deliver on Init
+        this.getDeliverDetails(this.route.snapshot.params.id);
+
+        this.socketDelivers.on(
+          "update-data",
+          function (data: any) {
+            this.getDeliverDetails();
+          }.bind(this)
+        );
       },
       (error) => this.router.navigate(["/admin/login"])
-    );
-
-    this.getDeliverDetails(this.route.snapshot.params.id);
-
-    this.socket.on(
-      "update-data",
-      function (data: any) {
-        this.getDeliverDetails();
-      }.bind(this)
     );
   }
 
@@ -93,7 +96,7 @@ export class DeliverDetailsComponent implements OnInit {
       (res) => {
         this.isLoadingResults = false;
         this.router.navigate(["/admin/delivers"]);
-        this.socket.emit("updatedata", res);
+        this.socketDelivers.emit("updatedata", res);
       },
       (err) => {
         console.log(err);
