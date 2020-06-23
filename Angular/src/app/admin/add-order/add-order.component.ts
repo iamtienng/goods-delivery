@@ -17,6 +17,19 @@ import { Order } from "../../models/order";
 import { AdminService } from "../admin.service";
 import { OrdersService } from "../orders.service";
 
+// Import for Openlayers API
+import "ol/ol.css";
+import Map from "ol/Map";
+import View from "ol/View";
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
+import { OSM, Vector as VectorSource } from "ol/source";
+import { fromLonLat, toLonLat } from "ol/proj";
+import { Feature } from "ol";
+import Point from "ol/geom/Point";
+import { Style, Icon } from "ol/style";
+import GeometryType from "ol/geom/GeometryType";
+import Draw from "ol/interaction/Draw";
+
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -66,6 +79,19 @@ export class AddOrderComponent implements OnInit {
   receiverName: "";
   receiverAddress: "";
 
+  // Openlayers map
+  map;
+  draw;
+  types = GeometryType.POINT;
+  raster = new TileLayer({
+    source: new OSM(),
+  });
+  source = new VectorSource({ wrapX: false });
+  vector = new VectorLayer({
+    source: this.source,
+  });
+  // End of variables needed for Openlayers
+
   constructor(
     private admin: AdminService,
     private router: Router,
@@ -87,6 +113,17 @@ export class AddOrderComponent implements OnInit {
       receiverName: [null, Validators.required],
       receiverAddress: [null, Validators.required],
     });
+
+    // Openlayers init map
+    this.initilizeMap();
+    this.addInteraction();
+    this.draw.on("drawend", (evt) => {
+      console.log(evt.feature.getGeometry().getCoordinates());
+      this.newOrder.geometryCoordinate = evt.feature
+        .getGeometry()
+        .getCoordinates();
+    });
+    // End of area of Openlayers
   }
 
   onFormSubmit() {
@@ -113,6 +150,27 @@ export class AddOrderComponent implements OnInit {
       }
     );
   }
+
+  // Openlayers needed functions
+  initilizeMap() {
+    this.map = new Map({
+      target: "map",
+      layers: [this.raster, this.vector],
+      view: new View({
+        center: fromLonLat([15.550600290298462, 38.228319970534514]),
+        zoom: 10,
+      }),
+    });
+  }
+
+  addInteraction() {
+    this.draw = new Draw({
+      source: this.source,
+      type: this.types,
+    });
+    this.map.addInteraction(this.draw);
+  }
+  // End of Openlayers functions
 
   addName(data) {
     this.username = data.username;

@@ -122,7 +122,7 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
-  // Openlayers init map
+  // Openlayers needed functions
   initilizeMap(geoData) {
     this.map = new Map({
       target: "map",
