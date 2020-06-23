@@ -8,6 +8,17 @@ import { Order } from "src/app/models/order";
 import { JobsService } from "../jobs.service";
 import { UserService } from "../user.service";
 
+// Import for Openlayers API
+import "ol/ol.css";
+import Map from "ol/Map";
+import View from "ol/View";
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
+import { OSM, Vector as VectorSource } from "ol/source";
+import { fromLonLat, toLonLat } from "ol/proj";
+import { Feature } from "ol";
+import Point from "ol/geom/Point";
+import { Style, Icon } from "ol/style";
+
 @Component({
   selector: "app-job-detail",
   templateUrl: "./job-detail.component.html",
@@ -32,6 +43,27 @@ export class JobDetailComponent implements OnInit {
     updated: null,
     geometryCoordinate: null,
   };
+
+  // Openlayers map
+  map;
+  addressPoint = new Feature({});
+  styleAddressPoint = new Style({
+    image: new Icon({
+      color: "#8959A8",
+      crossOrigin: "anonymous",
+      imgSize: [20, 20],
+      src:
+        "https://raw.githubusercontent.com/iamtienng/Public-Icon/b228e25a865efd9c17297c1e07289de9d26b09c6/room-black-18dp.svg",
+    }),
+  });
+  raster = new TileLayer({
+    source: new OSM(),
+  });
+  source = new VectorSource({ wrapX: false, features: [this.addressPoint] });
+  vector = new VectorLayer({
+    source: this.source,
+  });
+  // End Openlayers needed variable
 
   constructor(
     private route: ActivatedRoute,
@@ -62,10 +94,36 @@ export class JobDetailComponent implements OnInit {
     this.api.getJobById(id).subscribe((data: any) => {
       this.job = data;
       // console.log(this.job);
-      console.log(this.job.geometryCoordinate);
+      // console.log(this.job.geometryCoordinate);
+      // console.log(this.coordinate);
+
+      // Set Point and init map
+
+      this.setPoint(this.job.geometryCoordinate);
+      this.addressPoint.setStyle(this.styleAddressPoint);
+      this.initilizeMap(this.job.geometryCoordinate);
+      // End init map
+
       this.isLoadingResults = false;
     });
   }
+
+  // Openlayers init map
+  initilizeMap(geoData) {
+    this.map = new Map({
+      target: "map",
+      layers: [this.raster, this.vector],
+      view: new View({
+        center: fromLonLat(toLonLat(geoData)),
+        zoom: 15,
+      }),
+    });
+  }
+
+  setPoint(geoData) {
+    this.addressPoint.setGeometry(new Point(fromLonLat(toLonLat(geoData))));
+  }
+  // End of Openlayers functions
 
   addName(data) {
     this.username = data.username;
