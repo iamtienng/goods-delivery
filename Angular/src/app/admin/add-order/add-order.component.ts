@@ -24,9 +24,6 @@ import View from "ol/View";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, Vector as VectorSource } from "ol/source";
 import { fromLonLat, toLonLat } from "ol/proj";
-import { Feature } from "ol";
-import Point from "ol/geom/Point";
-import { Style, Icon } from "ol/style";
 import GeometryType from "ol/geom/GeometryType";
 import Draw from "ol/interaction/Draw";
 

@@ -17,6 +17,19 @@ import { Order } from "src/app/models/order";
 import { AdminService } from "../admin.service";
 import { OrdersService } from "../orders.service";
 
+// Import for Openlayers API
+import "ol/ol.css";
+import Map from "ol/Map";
+import View from "ol/View";
+import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
+import { OSM, Vector as VectorSource } from "ol/source";
+import { fromLonLat, toLonLat } from "ol/proj";
+import { Feature } from "ol";
+import Point from "ol/geom/Point";
+import { Style, Icon } from "ol/style";
+import GeometryType from "ol/geom/GeometryType";
+import Draw from "ol/interaction/Draw";
+
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -60,6 +73,29 @@ export class EditOrderComponent implements OnInit {
     geometryCoordinate: null,
   };
 
+  // Openlayers map
+  map;
+  draw;
+  addressPoint = new Feature({});
+  styleAddressPoint = new Style({
+    image: new Icon({
+      color: "#8959A8",
+      crossOrigin: "anonymous",
+      imgSize: [20, 20],
+      src:
+        "https://raw.githubusercontent.com/iamtienng/Public-Icon/b228e25a865efd9c17297c1e07289de9d26b09c6/room-black-18dp.svg",
+    }),
+  });
+  types = GeometryType.POINT;
+  raster = new TileLayer({
+    source: new OSM(),
+  });
+  source = new VectorSource({ wrapX: false, features: [this.addressPoint] });
+  vector = new VectorLayer({
+    source: this.source,
+  });
+  // End of variables needed for Openlayers
+
   constructor(
     private admin: AdminService,
     private router: Router,
@@ -95,6 +131,19 @@ export class EditOrderComponent implements OnInit {
         receiverName: this.order.receiverName,
         receiverAddress: this.order.receiverAddress,
       });
+      // Set Point and init map
+
+      this.setPoint(this.order.geometryCoordinate);
+      this.addressPoint.setStyle(this.styleAddressPoint);
+      this.initilizeMap(this.order.geometryCoordinate);
+      this.addInteraction();
+      this.draw.on("drawend", (evt) => {
+        console.log(evt.feature.getGeometry().getCoordinates());
+        this.order.geometryCoordinate = evt.feature
+          .getGeometry()
+          .getCoordinates();
+      });
+      // End init map
     });
   }
 
@@ -121,6 +170,31 @@ export class EditOrderComponent implements OnInit {
       }
     );
   }
+
+  // Openlayers needed functions
+  initilizeMap(geoData) {
+    this.map = new Map({
+      target: "map",
+      layers: [this.raster, this.vector],
+      view: new View({
+        center: fromLonLat(toLonLat(geoData)),
+        zoom: 15,
+      }),
+    });
+  }
+
+  addInteraction() {
+    this.draw = new Draw({
+      source: this.source,
+      type: this.types,
+    });
+    this.map.addInteraction(this.draw);
+  }
+
+  setPoint(geoData) {
+    this.addressPoint.setGeometry(new Point(fromLonLat(toLonLat(geoData))));
+  }
+  // End of Openlayers functions
 
   addName(data) {
     this.username = data.username;
