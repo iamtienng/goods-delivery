@@ -30,6 +30,7 @@ export class JobDetailComponent implements OnInit {
     status: false,
     note: "",
     updated: null,
+    geometryCoordinate: null,
   };
 
   constructor(
@@ -60,7 +61,8 @@ export class JobDetailComponent implements OnInit {
   getJobDetails(id: string) {
     this.api.getJobById(id).subscribe((data: any) => {
       this.job = data;
-      console.log(this.job);
+      // console.log(this.job);
+      console.log(this.job.geometryCoordinate);
       this.isLoadingResults = false;
     });
   }

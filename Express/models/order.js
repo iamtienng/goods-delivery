@@ -11,6 +11,7 @@ var OrdersSchema = new mongoose.Schema({
   status: Boolean,
   note: String,
   updated: { type: Date, default: Date.now },
+  geometryCoordinate: [],
 });
 
 module.exports = mongoose.model("Orders", OrdersSchema);

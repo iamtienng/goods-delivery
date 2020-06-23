@@ -56,6 +56,7 @@ export class AddOrderComponent implements OnInit {
     status: false,
     note: "",
     updated: null,
+    geometryCoordinate: null,
   };
 
   orderForm: FormGroup;

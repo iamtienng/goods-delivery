@@ -9,4 +9,5 @@ export class Order {
   status: Boolean;
   note: string;
   updated: Date;
+  geometryCoordinate: Object;
 }

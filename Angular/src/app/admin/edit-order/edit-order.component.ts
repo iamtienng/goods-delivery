@@ -57,6 +57,7 @@ export class EditOrderComponent implements OnInit {
     status: false,
     note: "",
     updated: null,
+    geometryCoordinate: null,
   };
 
   constructor(

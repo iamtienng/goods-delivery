@@ -30,6 +30,7 @@ export class OrderDetailsComponent implements OnInit {
     status: false,
     note: "",
     updated: null,
+    geometryCoordinate: null,
   };
 
   constructor(
