@@ -10,8 +10,6 @@ var createError = require("http-errors");
 
 var indexRouter = require("./routes/index");
 
-var salesRouter = require("./routes/sales");
-
 var ordersRouter = require("./routes/orders");
 
 var usersRouter = require("./routes/users");
@@ -65,8 +63,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-
-app.use("/api", salesRouter);
 
 app.use("/orders", ordersRouter);
 
