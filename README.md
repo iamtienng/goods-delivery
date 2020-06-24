@@ -7,7 +7,7 @@
 
 ### Installation 
 ``` 
-git clone https://github.com/linnovate/mean
+git clone https://github.com/iamtienng/Goods-Delivery.git
 ``` 
 Open another first bash for back-end:
 ``` 
