@@ -21,5 +21,5 @@ $ ng serve --open
 ``` 
 
 ### Credits 
-- The Goods Delivery name was coined by Tien Nguyen.
+- The Goods Delivery is a full-stack project built with MEAN Stack architecture developed by Tien Nguyen.
 - Initial concept and development was done by Tien Nguyen.
