@@ -1,6 +1,6 @@
 # Goods Delivery
 ### Pre-requisites
-* git
+* git - [Installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 * node.js - [Download page](https://nodejs.org/en/download/).
 * npm - comes with node or download yarn - [Download page](https://yarnpkg.com/lang/en/docs/install).
 * mongodb - [Download page](https://www.mongodb.com/download-center/community).
