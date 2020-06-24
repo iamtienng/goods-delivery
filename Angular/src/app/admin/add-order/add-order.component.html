@@ -159,7 +159,7 @@
       <div class="button-row">
         <button
           type="submit"
-          [disabled]="!orderForm.valid"
+          [disabled]="!orderForm.valid || !newOrder.geometryCoordinate"
           mat-flat-button
           color="primary"
         >

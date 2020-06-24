@@ -58,16 +58,6 @@ export class DeliverDetailsComponent implements OnInit {
       (data) => {
         this.addName(data);
 
-        // Get data for dataOrders on Init
-        this.getOrdersByDeliver();
-
-        this.socketOrders.on(
-          "update-data",
-          function (data: any) {
-            this.getOrdersByDeliver();
-          }.bind(this)
-        );
-
         // Get data of deliver on Init
         this.getDeliverDetails(this.route.snapshot.params.id);
 
@@ -87,6 +77,15 @@ export class DeliverDetailsComponent implements OnInit {
       this.deliver = data;
       console.log(this.deliver);
       this.isLoadingResults = false;
+      // Get data for dataOrders on Init
+      this.getOrdersByDeliver();
+
+      this.socketOrders.on(
+        "update-data",
+        function (data: any) {
+          this.getOrdersByDeliver();
+        }.bind(this)
+      );
     });
   }
 
