@@ -1,4 +1,6 @@
 # Goods Delivery
+[![Last Release:](https://img.shields.io/github/release/openconnect/openconnect-gui.svg)](https://github.com/iamtienng/Goods-Delivery/releases)
+
 ### Pre-requisites
 * git - [Installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 * node.js - [Download page](https://nodejs.org/en/download/).
