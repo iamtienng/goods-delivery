@@ -1,5 +1,5 @@
 # Goods Delivery
-[![Last Release:]()](https://github.com/iamtienng/Goods-Delivery/releases)
+[Last Release](https://github.com/iamtienng/Goods-Delivery/releases)
 
 ### Pre-requisites
 * git - [Installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
