@@ -25,3 +25,8 @@ $ ng serve --open
 ### Credits 
 - The Goods Delivery is a full-stack project built with MEAN Stack architecture developed by Tien Nguyen.
 - Initial concept and development was done by Tien Nguyen.
+
+### Sample pictures
+* Admin side
+See all orders list:
+![alt text](https://raw.githubusercontent.com/iamtienng/Goods-Delivery/master/Samples/Picture1.png?token=AIN2U5VRH7OTOD2IGD6Y74C7B3JJU)
