@@ -83,7 +83,7 @@ export class EditOrderComponent implements OnInit {
       crossOrigin: "anonymous",
       imgSize: [20, 20],
       src:
-        "https://raw.githubusercontent.com/iamtienng/Public-Icon/b228e25a865efd9c17297c1e07289de9d26b09c6/room-black-18dp.svg",
+        "https://raw.githubusercontent.com/iamtienng/Public-Images/master/room-black-18dp.svg",
     }),
   });
   types = GeometryType.POINT;
