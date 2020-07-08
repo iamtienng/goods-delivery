@@ -27,6 +27,6 @@ $ ng serve --open
 - Initial concept and development was done by Tien Nguyen.
 
 ### Sample pictures
-* Admin side
+* Admin side<BR>
 See all orders list:
 ![alt text](https://raw.githubusercontent.com/iamtienng/Goods-Delivery/master/Samples/Picture1.png?token=AIN2U5VRH7OTOD2IGD6Y74C7B3JJU)
