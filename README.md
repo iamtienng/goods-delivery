@@ -11,12 +11,12 @@
 ``` 
 git clone https://github.com/iamtienng/Goods-Delivery.git
 ``` 
-Open another first bash for back-end:
+Open first bash for back-end:
 ``` 
 $ cd Express && npm i
 $ npm start
 ``` 
-Open another second bash for front-end:
+Open second bash for front-end:
 ``` 
 $ cd Angular && npm i
 $ ng serve --open
